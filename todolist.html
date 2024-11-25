@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .todo-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+    }
+
+    h2 {
+        text-align: center;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+    }
+
+    .input-wrapper {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .input-wrapper input[type="text"] {
+        flex: 1;
+        padding: 8px;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+
+    .input-wrapper button {
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .input-wrapper button:hover {
+        background-color: #45a049;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 4px;
+        margin-bottom: 6px;
+    }
+
+    li:hover {
+        background-color: yellowgreen;
+        cursor: pointer;
+    }
+
+    .delete-btn {
+        background-color: #f44336;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .delete-btn:hover {
+        background-color: #e53935;
+    }
+</style>
+</head>
+<body>
+<div class="todo-container">
+    <h2>My To-Do List</h2>
+    <div class="input-wrapper">
+        <input type="text" id="taskInput" placeholder="Please Enter a valid Text....!">
+        <button id="pull">Add It</button>
+    </div>
+    <ul id="taskList"></ul>
+</div>
+
+<script>
+    document.querySelector('#pull').onclick = function(){
+        if(document.querySelector('.input-wrapper input').value.length == 0){
+            alert("Please Enter a Task")
+        }
+        else{
+            document.querySelector('#taskList').innerHTML += `
+                <div class="task">
+                    <span id="taskname">
+                        ${document.querySelector('.input-wrapper input').value}
+                    </span>
+                    <button class="delete">
+                        Can I delete it?
+                    </button>
+                </div>
+            `;
+    
+            var current_tasks = document.querySelectorAll(".delete");
+            for(var i=0; i<current_tasks.length; i++){
+                current_tasks[i].onclick = function(){
+                    this.parentNode.remove();
+                }
+            }
+    
+            var tasks = document.querySelectorAll(".task");
+            for(var i=0; i<tasks.length; i++){
+                tasks[i].onclick = function(){
+                    this.classList.toggle('completed');
+                }
+            }
+    
+            document.querySelector(".input-wrapper input").value = "";
+        }
+    }
+
+</script>
+</body>
+</html>
